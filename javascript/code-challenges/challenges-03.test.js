@@ -14,6 +14,9 @@ const addTwo = (arr) => {
   return newArr;
 };
 
+// We could one-line challenge 1 by using the map method.
+// const addTwo = (arr) => arr.map(number => number + 2);
+
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 2
 
