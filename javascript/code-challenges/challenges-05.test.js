@@ -8,7 +8,8 @@ Write a function that finds the maximum value in an array.
 E.g. [4,2,7,5,9,2] -> 9
 ------------------------------------------------------------------------------------------------ */
 const maxInArray = (arr) => {
-  // Solution code here...
+  const newArr = Math.max(...arr);
+  return newArr;
 };
 
 /* ------------------------------------------------------------------------------------------------
