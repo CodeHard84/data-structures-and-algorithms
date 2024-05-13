@@ -12,7 +12,7 @@ const stuff = {
   toys: 57,
   toothbrush: 'frayed',
   cars: ['Toyota', 'Mazda']
-}
+}; // <---- Added a semicolon here. -Jace
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 1
@@ -28,7 +28,8 @@ Prove that the original people array is unchanged
 ------------------------------------------------------------------------------------------------ */
 
 const addPeople = (arr) => {
-  // Solution code here...
+  const newArray = ['Odie', ...arr, 'Garfield'];
+  return newArray;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -45,7 +46,8 @@ Ensure that the original people array and stuff objects are unchanged
 ------------------------------------------------------------------------------------------------ */
 
 const setState = (arr, obj) => {
-  // Solution code here...
+  const state = {people: [...arr], stuff: {...obj}};
+  return state;
 };
 
 
@@ -65,8 +67,17 @@ Ensure that the original people array and stuff objects are unchanged
 
 ------------------------------------------------------------------------------------------------ */
 
-const newState = (arr, obj) => {
-  // Solution code here...
+const newState = (people, stuff) => {
+  const { cars, toys } = stuff;
+  return {
+    people: [...people],
+    stuff: {
+      ...stuff,
+      cars: [...cars, "Ford"],
+      toothbrush: "brand new",
+      toys: toys + 1
+    }
+  };
 };
 
 
