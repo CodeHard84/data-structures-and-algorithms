@@ -24,7 +24,8 @@ Write a function named addValues that, given an array of numbers as input, uses 
 ------------------------------------------------------------------------------------------------ */
 
 const addValues = (arr) => {
-  // Solution code here...
+  const newArr = arr.reduce((acc, val) => acc + val, 0);
+  return newArr;
 };
 
 /* ------------------------------------------------------------------------------------------------
