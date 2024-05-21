@@ -131,7 +131,8 @@ Note: You must use reduce for this challenge. You may not use the built-in .reve
 ------------------------------------------------------------------------------------------------ */
 
 const reversedString = (str) => {
-  // Solution code here...
+  const reversedLetters = str.split('').reduce((reversed, letter) => letter + reversed, '');
+  return reversedLetters;
 };
 
 /* ------------------------------------------------------------------------------------------------
