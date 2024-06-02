@@ -27,9 +27,17 @@ For example:
 return: 23
 ------------------------------------------------------------------------------------------------ */
 const findMax = (matrix) => {
-  // Solution code here...
-};
+  let maxNumber = null;
 
+  for (let row of matrix) { // Loop through each row
+    for (let num of row) { // Loop through each number in the row
+      if (num > maxNumber) {
+        maxNumber = num;
+      }
+    }
+  }
+  return maxNumber;
+};
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 3
 
@@ -45,7 +53,15 @@ For example:
 return: 35
 ------------------------------------------------------------------------------------------------ */
 const totalSum = (matrix) => {
-  // Solution code here...
+  let sum = 0;
+
+  for (let row of matrix) {
+    for (let num of row) {
+      sum += num;
+    }
+  }
+
+  return sum;
 };
 
 
@@ -72,8 +88,15 @@ const alkiBeach = [33, 31, 147, 130, 27, 93, 38, 126, 141, 63, 46, 17];
 const cookieStores = [firstPike, seaTac, seattleCenter, capHill, alkiBeach];
 
 const grandTotal = (stores) => {
-  // Solution code here...
+  const totalCookiesPerHour = new Array(hoursOpen.length).fill(0); // <--- ChatGPT helped here. I was trying to use a for loop to create the array and fill it with 0s, but ChatGPT suggested this method which is much cleaner.
 
+  for (let store of stores) {
+    for (let i = 0; i < store.length; i++) {
+      totalCookiesPerHour[i] += store[i];
+    }
+  }
+
+  return totalCookiesPerHour;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -87,7 +110,18 @@ Write a function named salesData that uses forEach to iterate over the hourlySal
 ------------------------------------------------------------------------------------------------ */
 
 const salesData = (hours, data) => {
-  // Solution code here...
+  const formattedData = [];
+
+  data.forEach((sales, index) => {
+    const salesObject = {
+      sales: `${sales} cookies`,
+      time: hours[index]
+    };
+
+    formattedData.push(salesObject);
+  });
+
+  return formattedData;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -112,7 +146,12 @@ const errands = [
 ];
 
 const howManyTreats = (arr) => {
-  // Solution code here...
+
+  const petStore = arr.find(store => store.store === 'Pet store');
+
+  const treatsItem = petStore.items.find(item => item.name === 'Treats');
+
+  return treatsItem.quantity;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -219,20 +258,20 @@ Run your tests from the console: jest challenge-12.test.js
 
 describe('Testing challenge 1', () => {
   test('it should return the last 10 characters of a string as an array', () => {
-    expect(returnTen('hello world')).toStrictEqual(['e','l','l','o',' ','w','o','r','l','d']);
-    expect(returnTen('world')).toStrictEqual(['w','o','r','l','d']);
+    expect(returnTen('hello world')).toStrictEqual(['e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']);
+    expect(returnTen('world')).toStrictEqual(['w', 'o', 'r', 'l', 'd']);
   });
 });
 
 describe('Testing challenge 2', () => {
   test('It should return the max value', () => {
-    expect(findMax([[13,24,24,2], [2,5,6], [2,3]])).toStrictEqual(24);
+    expect(findMax([[13, 24, 24, 2], [2, 5, 6], [2, 3]])).toStrictEqual(24);
   });
 });
 
 describe('Testing challenge 3', () => {
   test('It should return the total sum', () => {
-    expect(totalSum([[13,24,24,2], [2,5,6], [2,3]])).toStrictEqual(81);
+    expect(totalSum([[13, 24, 24, 2], [2, 5, 6], [2, 3]])).toStrictEqual(81);
     expect(totalSum([])).toStrictEqual(0);
   });
 });
