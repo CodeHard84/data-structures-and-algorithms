@@ -18,8 +18,8 @@ Becomes:
 ]
 ------------------------------------------------------------------------------------------------ */
 
-function transformToLis(obj){
-  // Solution code here...
+function transformToLis(obj) {
+  return Object.entries(obj).map(([key, value]) => `<li>${key}: ${value}</li>`);
 }
 
 /* ------------------------------------------------------------------------------------------------
@@ -33,9 +33,10 @@ For example, count(5, [[1, 3, 5, 7, 9], [5, 5, 5], [1, 2, 3]]) returns 4.
 ------------------------------------------------------------------------------------------------ */
 
 const count = (target, input) => {
-  // Solution code here...
-};
-
+  return input.reduce((acc, subArray) => {
+    return acc + subArray.filter(num => num === target).length;
+  }, 0);
+}; // GPT helped with this one. I was very close but I would have never thought to return twice.
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 3
 
@@ -47,7 +48,7 @@ For example, [[1, 2, 3, 4, 5], [6, 7, 2, 4, 5, 7], [9, 2, 3, 6,]] returns 66.
 ------------------------------------------------------------------------------------------------ */
 
 const totalSum = (input) => {
-  // Solution code here...
+  return input.reduce((acc, subArray) => acc + subArray.reduce((subAcc, num) => subAcc + num, 0), 0);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -63,8 +64,12 @@ For example, [ [0,2,5,4], [2,4,10], [] ] should return [ [1, 32], [1024], [] ].
 ------------------------------------------------------------------------------------------------ */
 
 const divisibleByFiveTwoToThePower = (input) => {
-  // Solution code here...
+  return input.map(subArray =>
+    subArray.filter(num => typeof num === 'number' && num % 5 === 0)
+      .map(num => Math.pow(2, num))
+  );
 };
+
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 5
@@ -129,7 +134,10 @@ let starWarsData = [{
 }];
 
 let findMaleAndFemale = (data) => {
-  // Solution code here...
+  return data
+    .filter(character => character.gender === 'male' || character.gender === 'female')
+    .map(character => character.name)
+    .join(' and ');
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -139,8 +147,11 @@ Write a function named findShortest that, given the Star Wars data from Challeng
 ------------------------------------------------------------------------------------------------ */
 
 let findShortest = (data) => {
-  // Solution code here...
+  return data.reduce((shortest, character) => {
+    return parseInt(character.height) < parseInt(shortest.height) ? character : shortest;
+  }).name;
 };
+
 
 /* ------------------------------------------------------------------------------------------------
 TESTS
@@ -155,8 +166,8 @@ Run your tests from the console: jest challenges-10.test.js
 
 describe('Testing challenge 1', () => {
   test('It should return a list of key value pairs inside of li tags', () => {
-    expect(transformToLis({name: 'bob', age: 32})[0]).toStrictEqual(`<li>name: bob</li>`);
-    expect(transformToLis({name: 'bob', age: 32})[1]).toStrictEqual(`<li>age: 32</li>`);
+    expect(transformToLis({ name: 'bob', age: 32 })[0]).toStrictEqual(`<li>name: bob</li>`);
+    expect(transformToLis({ name: 'bob', age: 32 })[1]).toStrictEqual(`<li>age: 32</li>`);
     expect(transformToLis({})).toStrictEqual([]);
   });
 });
