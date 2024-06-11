@@ -179,6 +179,7 @@ Here is a sample board:
 ------------------------------------------------------------------------------------------------ */
 
 const detectTicTacToeWin = (board) => {
+  // GPT helped exhaustively with this one.
   const helpCheck = (row1, col1, row2, col2, row3, col3) => {
     const val1 = board[row1][col1];
     const val2 = board[row2][col2];
