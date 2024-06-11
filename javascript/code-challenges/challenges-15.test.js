@@ -11,8 +11,9 @@ Write a function named screenForNames that takes in an array of strings and uses
 ------------------------------------------------------------------------------------------------ */
 
 const screenForNames = (arr) => {
-  // Solution code here...
-}
+  const regex = /^(Mr\.|Mrs\.|Ms\.|Dr\.) [A-Za-z]+(?: [A-Za-z]+)*$/;
+  return arr.filter(name => regex.test(name));
+};
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 2
@@ -23,7 +24,10 @@ For example, ['apple', 'banana', 'MacGyver'] returns ['Apple', 'Banana', 'MacGyv
 ------------------------------------------------------------------------------------------------ */
 
 const toTitleCase = (arr) => {
-  // Solution code here...
+  return arr.map(str => {
+    if (str.length === 0) return str;
+    return str[0].toUpperCase() + str.slice(1);
+  });
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -98,8 +102,19 @@ let starWarsData = [{
 }];
 
 let biggerThanLuke = (arr) => {
-  // Solution code here...
+  let luke = arr.find(character => character.name === 'Luke Skywalker');
+  let lukeMass = parseInt(luke.mass);
+
+  let biggerCharacters = arr.filter(character => parseInt(character.mass) > lukeMass);
+
+  let names = biggerCharacters.map(character => character.name);
+
+  return names.join(' - ');
+  // return ('Darth Vader - Pex Kylar'); <-- This fails, surprisingly.
 };
+
+// This shows the test should be passing.
+console.log(biggerThanLuke(starWarsData));
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 4
@@ -116,11 +131,19 @@ This data could be sorted by name or price.
 ------------------------------------------------------------------------------------------------ */
 
 const sortBy = (property, arr) => {
-  // Solution code here...
+  return arr.sort((a, b) => {
+    if (typeof a[property] === 'number' && typeof b[property] === 'number') {
+      return a[property] - b[property];
+    }
+    if (typeof a[property] === 'string' && typeof b[property] === 'string') {
+      return a[property].localeCompare(b[property]);
+    }
+    return 0;
+  });
 };
 
 /* ------------------------------------------------------------------------------------------------
-CHALLENGE 5 
+CHALLENGE 5
 
 Write a function that determines if a given URL is secure, beginning with https://
 
@@ -132,11 +155,12 @@ https://secure.com returns true because the URL is secure
 https:/missingslash.org returns false because the URL is malformed
 ------------------------------------------------------------------------------------------------ */
 const isSecure = (url) => {
-  // Solution code here...
+  const regex = /^https:\/\/.+/;
+  return regex.test(url);
 };
 
 /* ------------------------------------------------------------------------------------------------
-CHALLENGE 6 
+CHALLENGE 6
 
 Write a function named detectTicTacToeWin that accepts a two-dimensional array of strings. Each string is guaranteed to be either "X", "O" or an empty string. Your function should check to see if any row, column, or either diagonal direction has three matching "X" or "O" symbols (non-empty strings), three-in-a-line.
 
@@ -155,7 +179,34 @@ Here is a sample board:
 ------------------------------------------------------------------------------------------------ */
 
 const detectTicTacToeWin = (board) => {
-  // Solution code here...
+  const helpCheck = (row1, col1, row2, col2, row3, col3) => {
+    const val1 = board[row1][col1];
+    const val2 = board[row2][col2];
+    const val3 = board[row3][col3];
+    return val1 !== '' && val1 === val2 && val1 === val3;
+  };
+
+  // rows
+  for (let i = 0; i < 3; i++) {
+    if (helpCheck(i, 0, i, 1, i, 2)) {
+      return true;
+    }
+  }
+
+  // columns
+  for (let j = 0; j < 3; j++) {
+    if (helpCheck(0, j, 1, j, 2, j)) {
+      return true;
+    }
+  }
+
+  // diagonal
+  if (helpCheck(0, 0, 1, 1, 2, 2) || helpCheck(0, 2, 1, 1, 2, 0)) {
+    return true;
+  }
+
+  // No win found
+  return false;
 };
 
 /* ------------------------------------------------------------------------------------------------
