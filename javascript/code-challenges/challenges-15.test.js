@@ -102,14 +102,18 @@ let starWarsData = [{
 }];
 
 let biggerThanLuke = (arr) => {
-  let luke = arr.find(character => character.name === 'Luke Skywalker');
-  let lukeMass = parseInt(luke.mass);
+  if (arr.some(character => character.name === 'Luke Skywalker')) { // Can't be bigger than something that doesn't exist... Doh!
+    let luke = arr.find(character => character.name === 'Luke Skywalker');
+    let lukeMass = parseInt(luke.mass);
 
-  let biggerCharacters = arr.filter(character => parseInt(character.mass) > lukeMass);
+    let biggerCharacters = arr.filter(character => parseInt(character.mass) > lukeMass);
 
-  let names = biggerCharacters.map(character => character.name);
+    let names = biggerCharacters.map(character => character.name);
 
-  return names.join(' - ');
+    return names.join(' - ');
+  } else {
+    return '';
+  }
   // return ('Darth Vader - Pex Kylar'); <-- This fails, surprisingly.
 };
 
